@@ -1,42 +1,39 @@
-This repository contains code for the SchemaEnforce class, which is used for enforcing schema and pattern on a given dataframe.
+# SchemaEnforce
 
-## Requirements
-
-- Python 3.x
-- Pandas
-- JSON
+This class is used for enforcing schema and pattern on a given dataframe. It can be used to verify the schema of the dataframe against a schema file, as well as export the schema of the dataframe to a JSON file.
 
 ## Usage
 
-First, create an instance of the SchemaEnforce class, passing in the dataframe to be enforced and the paths to the schema file and pattern file:
+```python
+import pandas as pd
+import json
+import logging
 
-```
-schema_enforcer = SchemaEnforce(df, schema_file, pattern_file)
-```
+from schema_enforce import SchemaEnforce
 
-To export the schema of the dataframe to a JSON file, use the `export_schema_to_json` method:
+# Initialize the class
+df = pd.DataFrame({'col1': [1, 2, 3], 'col2': ['a', 'b', 'c']})
+schema_enforce = SchemaEnforce(df)
 
-```
-schema_enforcer.export_schema_to_json()
-```
+# Verify the schema
+schema_enforce.verify_schema('schema.json')
 
-To verify the schema of the dataframe against the schema file, use the `verify_schema` method:
-
-```
-schema_enforcer.verify_schema()
-```
-
-To export the pattern of the dataframe to a JSON file, use the `export_pattern_to_json` method:
-
-```
-schema_enforcer.export_pattern_to_json()
+# Export the schema to JSON
+schema_enforce.export_schema_to_json('schema.json')
 ```
 
-To verify the pattern of the dataframe against the pattern file, use the `verify_pattern` method:
+## Arguments
 
-```
-schema_enforcer.verify_pattern()
-```
+The SchemaEnforce class takes the following arguments:
+
+- `df` (pandas.DataFrame): Dataframe to be enforced
+- `schema_file` (str): Path to the schema file (default: None)
+- `log_file` (str): Path to the log file (default: 'schema_enforce.log')
+- `log_level` (str): Log level (default: 'INFO')
+
+## Logging
+
+The SchemaEnforce class has a logger that can be used to log any errors or warnings encountered while verifying the schema or exporting the schema to JSON. The log file can be specified using the `log_file` argument, and the log level can be specified using the `log_level` argument. The default log level is 'INFO'.
 
 ## Tests
 
